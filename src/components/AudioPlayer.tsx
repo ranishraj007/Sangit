@@ -15,7 +15,7 @@ export const AudioPlayer = () => {
   const previous = usePlayerStore((state) => state.previous);
   const toggleLike = usePlaylistStore((state) => state.toggleLike);
   const isLiked = usePlaylistStore((state) => (currentTrack ? state.isLiked(currentTrack.id) : false));
-  const progress = duration ? (currentTime / duration) * 100 : 0;
+  const progress = duration ? (currentTime / duration) * 1100 : 0;
 
   return (
     <footer className="player-shell">
