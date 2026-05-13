@@ -49,22 +49,44 @@ const Sidebar = ({ activeView, onChange }: { activeView: View; onChange: (view: 
   </aside>
 );
 
-const MobileNav = ({ activeView, onChange }: { activeView: View; onChange: (view: View) => void }) => (
-  <nav className="mobile-nav lg:hidden">
-    {navItems.map((item) => (
+const MobileNav = ({ activeView, onChange }: { activeView: View; onChange: (view: View) => void }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleChange = (view: View) => {
+    onChange(view);
+    setIsOpen(false);
+  };
+
+  return (
+    <div className="mobile-menu lg:hidden">
       <button
-        className={`mobile-nav-button ${activeView === item.id ? "text-pulse" : "text-white/55"}`}
-        key={item.id}
+        className="mobile-menu-toggle"
         type="button"
-        onClick={() => onChange(item.id)}
-        aria-label={item.label}
+        onClick={() => setIsOpen((open) => !open)}
+        aria-expanded={isOpen}
+        aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
       >
-        <Icon name={item.icon} className="h-5 w-5" />
-        <span className="text-[11px] font-semibold">{item.label}</span>
+        <Icon name={isOpen ? "close" : "menu"} className="h-5 w-5" />
       </button>
-    ))}
-  </nav>
-);
+
+      {isOpen && (
+        <nav className="mobile-menu-panel" aria-label="Mobile navigation">
+          {navItems.map((item) => (
+            <button
+              className={`mobile-menu-item ${activeView === item.id ? "mobile-menu-item-active" : ""}`}
+              key={item.id}
+              type="button"
+              onClick={() => handleChange(item.id)}
+            >
+              <Icon name={item.icon} className="h-5 w-5" />
+              <span>{item.label}</span>
+            </button>
+          ))}
+        </nav>
+      )}
+    </div>
+  );
+};
 
 const DiscoverCard = ({ track, queue }: { track: Track; queue: Track[] }) => {
   const currentTrack = usePlayerStore((state) => state.currentTrack);

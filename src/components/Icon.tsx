@@ -1,7 +1,7 @@
 import type { ReactElement } from "react";
 
 interface IconProps {
-  name: "home" | "search" | "library" | "play" | "pause" | "previous" | "next" | "heart" | "volume";
+  name: "home" | "search" | "library" | "menu" | "close" | "play" | "pause" | "previous" | "next" | "heart" | "volume";
   active?: boolean;
   className?: string;
 }
@@ -29,6 +29,19 @@ export const Icon = ({ name, active = false, className = "h-5 w-5" }: IconProps)
         <path d="M5 4v16" />
         <path d="M10 4v16" />
         <path d="m15 5 4 14" />
+      </>
+    ),
+    menu: (
+      <>
+        <path d="M4 7h16" />
+        <path d="M4 12h16" />
+        <path d="M4 17h16" />
+      </>
+    ),
+    close: (
+      <>
+        <path d="M6 6l12 12" />
+        <path d="M18 6 6 18" />
       </>
     ),
     play: <path d="M8 5v14l11-7z" fill="currentColor" stroke="none" />,
